@@ -24,8 +24,6 @@ public class HealthyHearts {
         bpm = 220 - age;
         double bpmMin = (bpm / 100) * 50;
         double bpmMax = (bpm / 100) * 85;
-        System.out.println(bpmMin);
-        System.out.println(bpmMax);
         System.out.println("Your maximum heart rate should be " + bpm + " beats per minute");
         System.out.println("Your target HR Zone is " + (int)bpmMin + " - " + (int)bpmMax + " beats per minute");
     }
