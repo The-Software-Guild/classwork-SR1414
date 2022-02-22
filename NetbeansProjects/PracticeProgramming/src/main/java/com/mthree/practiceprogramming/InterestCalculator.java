@@ -5,6 +5,7 @@
  */
 package com.mthree.practiceprogramming;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 /**
@@ -23,7 +24,8 @@ public class InterestCalculator {
         double initialAmountOfPrincipal;
         int numOfYearsInFund;
         int year = 1;
-
+        DecimalFormat df = new DecimalFormat("#.##");
+        
         System.out.println("What is the annual interest rate? (%) ");
         annualInterestRate = userInput.nextDouble();
         double QuarterlyInterestRate = annualInterestRate / 4;
@@ -35,55 +37,42 @@ public class InterestCalculator {
         numOfYearsInFund = userInput.nextInt();
 
         System.out.println("Calculating...");
-
-        //System.out.println(currentBalance);
-        for (int i = 1; i < numOfYearsInFund; i++) {
-            double perQuarter;
-            double annual;
-            double currentBalance;
+        double currentBalance = initialAmountOfPrincipal;
+        
+        while (year != numOfYearsInFund) {
+            
+            double perQuarter = ((currentBalance * (1 + ((QuarterlyInterestRate) / 100))) - currentBalance);
             double newBalance;
+            
             if (year == 1) {
-                currentBalance = initialAmountOfPrincipal;
-                perQuarter = ((currentBalance * (1 + ((QuarterlyInterestRate) / 100))) - currentBalance);
-                annual = perQuarter * 4;
-                newBalance = currentBalance + annual;
-                System.out.println("------------------------------------------");
+                newBalance = getNewBalance(currentBalance, perQuarter);
                 System.out.println("Year 1: ");
-                System.out.println("Began with £" + currentBalance);
-                System.out.println("Earned £" + annual);
-                System.out.println("Ended with £" + newBalance);
-                year++;
-            } else {
-                perQuarter = ((currentBalance * (1 + ((QuarterlyInterestRate) / 100))) - currentBalance);
-                annual = perQuarter * 4;
-                System.out.println("------------------------------------------");
-                System.out.println("Year 1: ");
-                System.out.println("Began with £" + currentBalance);
-                System.out.println("Earned £" + annual);
-                System.out.println("Ended with £" + newBalance);
+                System.out.println("Began with £" + df.format(currentBalance));
+                System.out.println("Earned £" + df.format((perQuarter * 4)));
+                System.out.println("Ended with £" + df.format(newBalance));
                 currentBalance = newBalance;
                 year++;
             }
+            if (year != 1){
+                newBalance = getNewBalance(currentBalance, perQuarter);
+                System.out.println("Year " + year + ": ");
+                System.out.println("Began with £" + df.format(currentBalance));
+                System.out.println("Earned £" + df.format((perQuarter * 4)));
+                System.out.println("Ended with £" + df.format(newBalance));
+                currentBalance = newBalance;
+                year++;
+            }
+
         }
 
     }
+    
+    public static double getNewBalance(double x, double y){
+        double balance = x;
+        double perAnum = y*4;
+        double newBalance = balance + perAnum;
+        return newBalance;
+        
+    }
 
-    /*while (year != numOfYearsInFund) {
-            if (year == 1) {
-                System.out.println("Year 1: ");
-                System.out.println("Began with £" + initialAmountOfPrincipal);
-                System.out.println("Earned £" + (perQuarter * 4));
-                System.out.println("Ended with £" + (currentBalance + (perQuarter * 4)));
-                year++;
-            }
-            perQuarter = ((currentBalance * (1 + ((QuarterlyInterestRate) / 100))) - currentBalance);
-            //double currentBalance = current
-            //System.out.println(perQuarter);
-            System.out.println("Year " + year + ": ");
-            System.out.println("Began with £" + initialAmountOfPrincipal);
-            System.out.println("Earned £" + (perQuarter * 4));
-            System.out.println("Ended with £" + (currentBalance + (perQuarter * 4)));
-            year++;
-        }*/
-}
 }
