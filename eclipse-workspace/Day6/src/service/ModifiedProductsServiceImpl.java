@@ -1,0 +1,48 @@
+package service;
+
+import java.util.ArrayList;
+
+import Entity.Products;
+import persistence.ProductsDao;
+import persistence.ProductsDaoImpl;
+
+public class ModifiedProductsServiceImpl extends ProductsServiceImpl{
+
+	
+	public ModifiedProductsServiceImpl(ProductsDao productsDao) {
+		super(productsDao);
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	@Override
+	public ArrayList<Products> getProductsList() {
+		// TODO Auto-generated method stub
+		return getProductsDao().getProductsList();
+	}
+	
+	@Override
+	public Products getById(int id) {
+		// TODO Auto-generated method stub
+		return getProductsDao().getById(id);
+	}
+	
+	@Override
+	public boolean saveProduct(Products product) {
+		// TODO Auto-generated method stub
+		int rows = getProductsDao().addNewProduct(product);
+		if(rows>0)
+			return true;
+		return false;
+	}
+	@Override
+	public String deleteProduct(int id) {
+		// TODO Auto-generated method stub
+		return getProductsDao().deleteProduct(id);
+	}
+	public String updateProduct(Products product, int id) {
+		// TODO Auto-generated method stub
+		return getProductsDao().updateProduct(product, id);
+	}
+
+}

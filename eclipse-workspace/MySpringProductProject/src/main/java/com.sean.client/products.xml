@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id = "prodDao" class="persistence.ProductsDaoImpl" ></bean>
+
+<bean id="prodService" class="service.ProductsServiceImpl">
+		<constructor-arg name="productsDao" ref="prodDao"></constructor-arg>
+	</bean>
+	
+<bean id="modifiedEmpService" class="service.ModifiedProductsServiceImpl">
+		<constructor-arg name="productsDao" ref="prodDao"></constructor-arg>
+	</bean>
+	
+	
+<bean id="prodPresentation" class="presentation.ProductsPresentationImpl">
+	<constructor-arg name="productsService" ref="modifiedEmpService"></constructor-arg>
+</bean>
+
+</beans>
